@@ -35,6 +35,9 @@ fn main() {
         
         guess.pop();
         guessvec.push((guess_tracker, guess));          // Current guess and its number is pushed onto the vector
+        if guessvec.len() > 3 {                         // Removes the earliest guesses when there are more than 3
+            guessvec = guessvec[1..].to_vec();
+        }
         
         println!("You guessed: {}", guessnum);
         
@@ -43,11 +46,9 @@ fn main() {
             Ordering::Greater   => println!("Too big!"),
             Ordering::Equal     => {
                 println!("You win!");
-                for guesselement in guessvec.clone() {
-                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // All guesses are printed out 
-                }
+                guessvec.reverse();                                 // Reverses order of the vector elements
                 for guesselement in guessvec {
-                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // The history is printed again, after the first was printed from a clone
+                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // All guesses are printed out 
                 }
                 println!("Total number of guesses was {}", guess_tracker);
                 break;
