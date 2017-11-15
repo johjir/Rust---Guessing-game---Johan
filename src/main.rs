@@ -32,7 +32,7 @@ fn main() {
         };
         
         guess_tracker = guess_tracker + 1;
-        
+        guess.pop();
         guessvec.push((guess_tracker, guess));          // Current guess and its number is pushed onto the vector
         
         println!("You guessed: {}", guessnum);
@@ -43,7 +43,7 @@ fn main() {
             Ordering::Equal     => {
                 println!("You win!");
                 for guesselement in guessvec {
-                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // All guesses are printed out (but with \n at the end of all strings as a side effect of storing unaltered user input)
+                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // All guesses are printed out 
                 }
                 println!("Total number of guesses was {}", guess_tracker);
                 break;
