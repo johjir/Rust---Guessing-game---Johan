@@ -3,6 +3,7 @@ extern crate rand;
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
+use std::collections::HashMap;
 
 fn main() {
     println!("Guess the number!");
@@ -11,7 +12,7 @@ fn main() {
     
     let mut guess_tracker: u32 = 0;
     
-    let mut guessvec: Vec<(u32, String)> = Vec::new();          // A vector for the guesses is created
+    let mut guesshash = HashMap::new();     // A hashmap for the guesses is created
     
     //println!("The secret number is {}", secret_number);
     
@@ -31,9 +32,9 @@ fn main() {
             }
         };
         
-        guess_tracker = guess_tracker + 1;
+        guess_tracker += 1;
         guess.pop();
-        guessvec.push((guess_tracker, guess));          // Current guess and its number is pushed onto the vector
+        guesshash.insert(guess_tracker, guess);     // Current guess and its number is pushed onto the hashmap
         
         println!("You guessed: {}", guessnum);
         
@@ -42,8 +43,8 @@ fn main() {
             Ordering::Greater   => println!("Too big!"),
             Ordering::Equal     => {
                 println!("You win!");
-                for guesselement in guessvec {
-                    println!("Guess {} was {}", guesselement.0, guesselement.1);    // All guesses are printed out 
+                for guesselement in 1..guess_tracker+1 {  // All guesses are printed
+                    println!("Guess {} was {}", guesselement, guesshash.get(&guesselement).unwrap());
                 }
                 println!("Total number of guesses was {}", guess_tracker);
                 break;
