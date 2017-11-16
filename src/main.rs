@@ -43,7 +43,7 @@ fn main() {
             Ordering::Greater   => println!("Too big!"),
             Ordering::Equal     => {
                 println!("You win!");
-                for guesselement in 1..guess_tracker+1 {  // All guesses are printed
+                for guesselement in ({if guess_tracker>2 {guess_tracker-2} else {1}}..guess_tracker+1).rev() {  // The three last guesses are printed in reverse order with all guesses printed if they are less than 3
                     println!("Guess {} was {}", guesselement, guesshash.get(&guesselement).unwrap());
                 }
                 println!("Total number of guesses was {}", guess_tracker);
